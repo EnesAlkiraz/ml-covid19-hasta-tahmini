@@ -29,7 +29,7 @@
     <tbody>
       <tr><td><strong>Veri Seti Adı</strong></td><td>COVID-19 Symptoms and Presence Dataset</td></tr>
       <tr><td><strong>Kaynak</strong></td><td>Kaggle</td></tr>
-      <tr><td><strong>Bağlantı</strong></td><td><a href="https://www.kaggle.com/datasets/hemanthhari/symptoms-and-covid-presence" target="_blank">🔗 Veri Setine Git</a></td></tr>
+      <tr><td><strong>Bağlantı</strong></td><td><a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report" target="_blank">🔗 Veri Setine Git</a></td></tr>
       <tr><td><strong>Dosya</strong></td><td><code>Cleaned-Data.csv</code></td></tr>
       <tr><td><strong>Veri Tipi</strong></td><td>Binary (İkili: 0 / 1)</td></tr>
     </tbody>
