@@ -159,10 +159,7 @@ X_train, X_test, y_train, y_test = <span class="fn">train_test_split</span>(
     </div>
   </div>
 
-  <h3>🏆 Final Model Seçimi</h3>
-  <pre><code>best_model = models.<span class="fn">loc</span>[models[<span class="st">'Score'</span>].<span class="fn">idxmax</span>(), <span class="st">'Model'</span>]
-<span class="fn">print</span>(<span class="st">f"En yüksek başarı: {best_model}"</span>)</code></pre>
-  <p>Doğruluk skoru karşılaştırması sonucunda en yüksek başarıyı sergileyen model otomatik olarak tespit edilmiş ve <strong>final tahminci</strong> olarak seçilmiştir.</p>
+
 
   <h3>🔍 Özellik Önem Analizi</h3>
   <p>Random Forest modeli aracılığıyla hastalık şiddetini tahmin etmede en belirleyici <strong>ilk 10 semptom</strong> belirlenmiştir. Bu analiz, klinik açıdan hangi belirtilerin daha kritik olduğunu ortaya koymaktadır.</p>
