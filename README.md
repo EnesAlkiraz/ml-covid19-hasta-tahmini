@@ -18,7 +18,7 @@ Bu proje, COVID-19 hastalarının semptomlarına (ateş, öksürük, nefes darl�
 ##  Veri Seti
 
 **Veri Seti Adı:** COVID-19 Cleaned Dataset  
-**Kaynak:** [Kaggle – COVID-19 Dataset](https://www.kaggle.com/datasets/hemanthhari/symptoms-and-covid-presence)
+**Kaynak:** [Kaggle – COVID-19 Dataset](https://www.kaggle.com/datasets/imdevskp/corona-virus-report)
 
 ### Veri Seti Hakkında
 
@@ -156,7 +156,7 @@ cd covid19-hasta-tahmini
 
 ### Adım 2: Veri Setini İndir
 
-[Kaggle'dan veri setini indirin](https://www.kaggle.com/datasets/hemanthhari/symptoms-and-covid-presence) ve zip dosyasını proje dizinine koyun:
+[Kaggle'dan veri setini indirin](https://www.kaggle.com/datasets/imdevskp/corona-virus-report) ve zip dosyasını proje dizinine koyun:
 
 ```
 covid19-hasta-tahmini/
