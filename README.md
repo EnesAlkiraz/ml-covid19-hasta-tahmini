@@ -122,10 +122,6 @@ X_train, X_test, y_train, y_test = <span class="fn">train_test_split</span>(
     bir sınıfa ait olma olasılığını hesaplar.
   </p>
 
-  <div class="formula">
-    P(y=1 | X) = 1 / ( 1 + e<sup>−(β₀ + β₁x₁ + ... + βₙxₙ)</sup> )
-  </div>
-
   <h3>Avantajları</h3>
   <ul>
     <li>Yorumlanabilirliği yüksektir</li>
