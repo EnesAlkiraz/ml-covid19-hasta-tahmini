@@ -135,12 +135,6 @@ X_train, X_test, y_train, y_test = <span class="fn">train_test_split</span>(
     Her ağaç verinin rastgele bir alt kümesinde eğitilir; sonuçlar çoğunluk oylamasıyla birleştirilir.
   </p>
 
-
-rf_model = <span class="fn">RandomForestClassifier</span>(n_estimators=<span class="nm">100</span>)
-rf_model.<span class="fn">fit</span>(X_train, y_train)  <span class="cm"># 100 karar ağacından oluşan orman</span></code></pre>
-
-  <hr/>
-
   <!-- PERFORMANCE -->
   <h2>📊 Model Performans Karşılaştırması</h2>
 
