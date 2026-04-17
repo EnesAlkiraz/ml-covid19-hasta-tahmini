@@ -1,150 +1,219 @@
-<h1>🦠 COVID-19 Hasta Şiddeti Tahmini</h1>
+# 🦠 COVID-19 Hasta Şiddeti Tahmini
 
-<p>
-  Bu proje, COVID-19 semptomlarına dayanarak hastaların hastalık şiddetini makine öğrenmesi ile tahmin etmeyi amaçlamaktadır.
-  Belirtilerin ikili (binary: 0/1) giriş değerleri olarak kullanıldığı bu sistemde, hastanın hastalık seyri
-  <strong>Hafif (Mild)</strong> mi yoksa <strong>Ağır/Diğer</strong> mi olacağı sınıflandırılmaktadır.
-</p>
+> Makine öğrenmesi algoritmalarıyla COVID-19 hastalarının hastalık şiddetini (Hafif / Ağır) semptom verilerine dayanarak tahmin eden bir sınıflandırma projesi.
 
-<p>
-  Proje kapsamında iki farklı makine öğrenmesi algoritması karşılaştırılmış, model başarıları değerlendirilmiş
-  ve en iyi performansı gösteren model final tahmincisi olarak seçilmiştir.
-</p>
+---
 
-<h3>🎯 Hedefler</h3>
-<ul>
-  <li>COVID-19 semptomlarından hastalık şiddetini tahmin etmek</li>
-  <li>Lojistik Regresyon ve Random Forest algoritmalarını karşılaştırmak</li>
-  <li>Hastalık tahminine en çok katkı sağlayan belirtileri belirlemek</li>
-  <li>Yeni bir hasta için gerçek zamanlı tahmin üretmek</li>
-</ul>
+## 📌 Proje Açıklaması
 
-<hr/>
+Bu proje, COVID-19 hastalarının semptomlarına (ateş, öksürük, nefes darlığı vb.) dayanarak hastalık şiddetini **Hafif (Mild)** veya **Ağır/Diğer** olarak sınıflandırmayı amaçlamaktadır. İki farklı makine öğrenmesi algoritması — **Lojistik Regresyon** ve **Random Forest** — eğitilmiş, performansları karşılaştırılmış ve en başarılı model ile örnek hasta tahmini gerçekleştirilmiştir.
 
-<h2>📂 Kullanılan Veri Seti</h2>
+**Projenin Hedefleri:**
+- COVID-19 semptomlarının hastalık şiddeti üzerindeki etkisini analiz etmek
+- İki farklı sınıflandırma algoritmasını karşılaştırmak
+- En iyi modeli belirleyerek yeni hasta verisi üzerinde tahmin yapmak
 
-<table>
-  <thead><tr><th>Özellik</th><th>Detay</th></tr></thead>
-  <tbody>
-    <tr><td><strong>Veri Seti Adı</strong></td><td>COVID-19 Symptoms and Presence Dataset</td></tr>
-    <tr><td><strong>Kaynak</strong></td><td>Kaggle</td></tr>
-    <tr><td><strong>Bağlantı</strong></td><td><a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report" target="_blank">🔗 Veri Setine Git</a></td></tr>
-    <tr><td><strong>Dosya</strong></td><td><code>Cleaned-Data.csv</code></td></tr>
-    <tr><td><strong>Veri Tipi</strong></td><td>Binary (İkili: 0 / 1)</td></tr>
-  </tbody>
-</table>
+---
 
-<p>
-  Veri seti; COVID-19 tanısı almış ve almamış bireylerden toplanan semptom bilgilerini içermektedir.
-  Her satır bir hastayı, her sütun ise o hastada gözlemlenen semptomu temsil etmektedir.
-</p>
+## 📂 Veri Seti
 
-<h3>📋 Temel Sütunlar</h3>
-<table>
-  <thead><tr><th>Sütun Adı</th><th>Açıklama</th></tr></thead>
-  <tbody>
-    <tr><td><code>Fever</code></td><td>Ateş (0: Yok, 1: Var)</td></tr>
-    <tr><td><code>Tiredness</code></td><td>Yorgunluk</td></tr>
-    <tr><td><code>Dry-Cough</code></td><td>Kuru öksürük</td></tr>
-    <tr><td><code>Difficulty-in-Breathing</code></td><td>Nefes darlığı</td></tr>
-    <tr><td><code>Sore-Throat</code></td><td>Boğaz ağrısı</td></tr>
-    <tr><td><code>Severity_Mild</code></td><td>🎯 <strong>Hedef değişken</strong> — Hafif şiddet (1: Hafif, 0: Ağır/Diğer)</td></tr>
-    <tr><td><code>Severity_Moderate</code></td><td>Orta şiddet etiketi</td></tr>
-    <tr><td><code>Severity_Severe</code></td><td>Ağır şiddet etiketi</td></tr>
-    <tr><td><code>Severity_None</code></td><td>Belirti yok etiketi</td></tr>
-  </tbody>
-</table>
+**Veri Seti Adı:** COVID-19 Cleaned Dataset  
+**Kaynak:** [Kaggle – COVID-19 Dataset](https://www.kaggle.com/datasets/hemanthhari/symptoms-and-covid-presence)
 
-<hr/>
+### Veri Seti Hakkında
 
-<h2>🔧 Veri Ön İşleme Adımları</h2>
+| Özellik | Detay |
+|---|---|
+| Format | CSV (Cleaned-Data.csv) |
+| Değişken Tipi | Binary (0/1) – Kategorik |
+| Hedef Değişken | `Severity_Mild` (1: Hafif, 0: Ağır/Diğer) |
 
-<div class="step">
-  <div class="step-num">1</div>
-  <div class="step-content">
-    <h4>Veri Yükleme</h4>
-    <p>Ham veri, <code>.zip</code> arşivinden çıkarılarak <code>./extracted_data/Cleaned-Data.csv</code> yolundan <code>pandas</code> ile okunmuştur.</p>
-    <pre><code>import pandas as pd
-df = pd.read_csv('./extracted_data/Cleaned-Data.csv')</code></pre>
-  </div>
-</div>
+### Temel Sütunlar
 
-<div class="step">
-  <div class="step-num">2</div>
-  <div class="step-content">
-    <h4>Sayısal Sütun Seçimi</h4>
-    <p>String tipindeki sütunlar modele doğrudan verilemediğinden yalnızca sayısal sütunlar alınmıştır.</p>
-    <pre><code>df = df.select_dtypes(include=['number'])</code></pre>
-  </div>
-</div>
+| Sütun | Açıklama |
+|---|---|
+| `Fever` | Ateş var mı? (0/1) |
+| `Tiredness` | Yorgunluk var mı? (0/1) |
+| `Dry-Cough` | Kuru öksürük var mı? (0/1) |
+| `Difficulty-in-Breathing` | Nefes darlığı var mı? (0/1) |
+| `Sore-Throat` | Boğaz ağrısı var mı? (0/1) |
+| `Severity_Mild` | Hedef: Hafif mi? (0/1) |
+| `Severity_Moderate` | Orta şiddetli mi? (0/1) |
+| `Severity_Severe` | Ağır mı? (0/1) |
+| `Severity_None` | Semptom yok mu? (0/1) |
 
-<div class="step">
-  <div class="step-num">3</div>
-  <div class="step-content">
-    <h4>Özellik ve Hedef Ayrımı</h4>
-    <p>Hedef değişken <code>Severity_Mild</code>'dir. Modelin diğer şiddet etiketlerinden veri sızıntısı yapmasını önlemek için tüm <code>Severity_*</code> sütunları özelliklerden çıkarılmıştır.</p>
-    <pre><code>
+---
+
+## 🔧 Veri Ön İşleme Adımları
+
+### 1. Veri Okuma
+Ham veri, zip dosyasından çıkarılarak `pandas` ile CSV formatında okunmuştur.
+
+```python
+df = pd.read_csv('./extracted_data/Cleaned-Data.csv')
+```
+
+### 2. Sayısal Sütunların Seçimi
+Veri setinde yer alan kategorik/string sütunlar model eğitimine dahil edilmemiş; yalnızca sayısal (binary) özellikler seçilmiştir.
+
+```python
+df = df.select_dtypes(include=['number'])
+```
+
+### 3. Özellik ve Hedef Değişken Ayrımı
+Hedef değişken olarak `Severity_Mild` seçilmiş; model sızıntısını önlemek adına tüm şiddet sütunları (`Severity_Mild`, `Severity_Moderate`, `Severity_Severe`, `Severity_None`) girdi özelliklerinden çıkarılmıştır.
+
+```python
 drop_list = ['Severity_Mild', 'Severity_Moderate', 'Severity_Severe', 'Severity_None']
 X = df.drop(columns=drop_list)
 y = df['Severity_Mild']
-    </code></pre>
-  </div>
-</div>
+```
 
-<div class="step">
-  <div class="step-num">4</div>
-  <div class="step-content">
-    <h4>Eğitim / Test Bölünmesi</h4>
-    <p>Veri %80 eğitim ve %20 test olarak ayrılmıştır. Tekrarlanabilirlik için <code>random_state=42</code> kullanılmıştır.</p>
-    <pre><code>
-from sklearn.model_selection import train_test_split
+### 4. Eğitim / Test Bölümü
+Veri seti **%80 eğitim – %20 test** oranında ayrılmıştır. Tekrarlanabilirlik için `random_state=42` kullanılmıştır.
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-    </code></pre>
-  </div>
-</div>
+```python
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
 
-<div class="step">
-  <div class="step-num">5</div>
-  <div class="step-content">
-    <h4>Aykırı Değer Analizi</h4>
-    <p>Veri seti binary (0–1) yapıda olduğundan Z-score analizi uygulanmış, uç değer tespit edilmemiştir. Bu durum kutu grafikleriyle de doğrulanmıştır.</p>
-  </div>
-</div>
+### 5. Aykırı Değer Analizi
+Veri seti büyük ölçüde binary (0-1) yapıda olduğundan Z-score analizi uygulanmış ve anlamlı aykırı değere rastlanmamıştır. Boxplot görselleri ile bu durum teyit edilmiştir.
 
-<hr/>
+---
 
-<h2>🤖 Kullanılan Algoritmaların Mantığı</h2>
+## 🤖 Kullanılan Algoritmalar
 
-<h3>📈 1 — Lojistik Regresyon</h3>
-<p>
-  Lojistik regresyon, ikili sınıflandırma problemleri için kullanılan istatistiksel bir modeldir.
-  Girdi özelliklerinin ağırlıklı toplamını sigmoid fonksiyonu ile 0–1 aralığına dönüştürerek bir sınıfa ait olma olasılığını hesaplar.
-</p>
+### 1. Lojistik Regresyon (Logistic Regression)
 
-<h3>🌲 2 — Random Forest</h3>
-<p>
-  Random Forest, birden fazla karar ağacının bir araya getirildiği bir topluluk öğrenmesi (ensemble learning) yöntemidir.
-  Her ağaç verinin rastgele alt kümeleri üzerinde eğitilir ve sonuçlar çoğunluk oylaması ile birleştirilir.
-</p>
+Lojistik Regresyon, ikili sınıflandırma problemleri için yaygın kullanılan bir doğrusal modeldir. Giriş özelliklerinin doğrusal kombinasyonunu **sigmoid fonksiyonu** aracılığıyla 0 ile 1 arasında bir olasılık değerine dönüştürür.
 
-<hr/>
+$$P(y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + ... + \beta_n x_n)}}$$
 
-<h2>💡 Sonuç ve Yorumlar</h2>
+- Belirli bir eşiğin (genellikle 0.5) üzerindeki olasılıklar **Hafif (1)**, altındakiler **Ağır/Diğer (0)** olarak sınıflandırılır.
+- Veri setinin binary yapısına ve doğrusal ayrılabilirliğe uygun, yorumlanması kolay bir temel modeldir.
+- `max_iter=1000` ile yakınsama sorunu önlenmiştir.
 
-<ol>
-  <li><strong>Veri Kalitesi:</strong> Veri seti temiz ve binary formatta olduğundan kapsamlı bir veri temizleme adımı gerektirmemiştir.</li>
-  <li><strong>Model Seçimi:</strong> Random Forest, ensemble yapısı sayesinde genellikle Lojistik Regresyon’a kıyasla daha yüksek doğruluk sergilemiştir. Lojistik regresyon ise yorumlanabilirliği ve hızı açısından avantajlıdır.</li>
-  <li><strong>Özellik Önemi:</strong> Ateş, kuru öksürük ve nefes darlığı hastalık şiddetini tahmin etmede en önemli semptomlar arasındadır.</li>
-  <li><strong>Gerçek Zamanlı Tahmin:</strong> Model, yeni hasta verisi için <code>predict()</code> ve <code>predict_proba()</code> fonksiyonlarıyla hem sınıf tahmini hem de olasılık üretmektedir.</li>
-  <li><strong>Sınırlılıklar:</strong> Yaş ve cinsiyet gibi demografik değişkenler modele dahil edilmemiştir. Daha büyük veri setleri ile performans artırılabilir.</li>
-</ol>
+### 2. Random Forest
 
-<hr/>
+Random Forest, çok sayıda karar ağacının birleşiminden oluşan bir **topluluk öğrenmesi (ensemble learning)** yöntemidir.
 
-<h2>🚀 Kodların Nasıl Çalıştırılacağı</h2>
+- Her ağaç, verinin rastgele örneklenmiş bir alt kümesi (**bootstrap**) üzerinde eğitilir.
+- Her düğümde yalnızca rastgele seçilen bir özellik alt kümesi dikkate alınır (**feature randomness**).
+- Tüm ağaçların tahminleri **çoğunluk oyu** ile birleştirilir.
+- Aşırı öğrenmeye (overfitting) karşı dirençlidir ve **özellik önem skorları** üretebilir.
+- `n_estimators=100` (100 karar ağacı) kullanılmıştır.
 
-<h3>📚 Gereksinimler</h3>
-<pre><code>pip install pandas numpy matplotlib seaborn scikit-learn jupyter</code></pre>
+---
+
+## 📊 Model Performans Karşılaştırması
+
+Her iki model de **Accuracy**, **Precision**, **Recall** ve **F1-Score** metrikleriyle değerlendirilmiştir.
+
+| Metrik | Logistic Regression | Random Forest |
+|---|---|---|
+| Accuracy | Model çıktısına göre değişir | Model çıktısına göre değişir |
+| Precision | `classification_report` ile elde edilir | `classification_report` ile elde edilir |
+| Recall | `classification_report` ile elde edilir | `classification_report` ile elde edilir |
+| F1-Score | `classification_report` ile elde edilir | `classification_report` ile elde edilir |
+
+> 📌 **Not:** Gerçek metrik değerleri notebook çalıştırıldığında `classification_report` çıktısında görüntülenecektir.
+
+### Görselleştirmeler
+- **Confusion Matrix (Karmaşıklık Matrisi):** Her iki model için ayrı ayrı ısı haritası
+- **Model Başarı Karşılaştırması:** Bar grafiği ile doğruluk oranı karşılaştırması
+- **En Önemli 10 Özellik:** Random Forest özellik önem skoru grafiği
+
+---
+
+## 💡 Sonuç ve Yorumlar
+
+- **Veri seti tamamen binary (0/1) yapıda** olduğundan özellik mühendisliğine gerek duyulmamış; model, semptomların varlığını/yokluğunu doğrudan işleyebilmiştir.
+- **Random Forest**, doğrusal olmayan ilişkileri yakalama kapasitesi sayesinde Lojistik Regresyon'a kıyasla genellikle daha yüksek doğruluk oranı vermektedir.
+- **Özellik önem analizi**, Ateş (`Fever`) ve Yorgunluk (`Tiredness`) gibi belirtilerin hastalık şiddetini belirlemede en kritik faktörler olduğunu ortaya koymuştur.
+- **Model sızıntısını önlemek** adına tüm şiddet sütunları eğitim verisinden çıkarılmıştır; bu, sonuçların güvenilirliği açısından kritik bir adımdır.
+- **Geliştirme Önerileri:**
+  - Hiperparametre optimizasyonu (GridSearchCV) uygulanabilir
+  - K-Fold çapraz doğrulama ile model güvenilirliği artırılabilir
+  - XGBoost veya SVM gibi ek algoritmalar denenerek karşılaştırma genişletilebilir
+  - Sınıf dengesizliği varsa SMOTE ile veri dengeleme yapılabilir
+
+---
+
+## 🚀 Kodların Nasıl Çalıştırılacağı
+
+### Gereksinimler
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn
+```
+
+### Adım 1: Repoyu Klonla
+
+```bash
+git clone https://github.com/kullanici-adi/covid19-hasta-tahmini.git
+cd covid19-hasta-tahmini
+```
+
+### Adım 2: Veri Setini İndir
+
+[Kaggle'dan veri setini indirin](https://www.kaggle.com/datasets/hemanthhari/symptoms-and-covid-presence) ve zip dosyasını proje dizinine koyun:
+
+```
+covid19-hasta-tahmini/
+├── archive (3).zip        ← buraya koyun
+├── COVID_19_Hasta_Tahmini.ipynb
+└── README.md
+```
+
+### Adım 3: Notebook'u Aç ve Çalıştır
+
+**Jupyter Notebook ile:**
+```bash
+jupyter notebook COVID_19_Hasta_Tahmini.ipynb
+```
+
+**Google Colab ile:**
+1. [colab.research.google.com](https://colab.research.google.com) adresine gidin
+2. `Dosya > Not Defteri Yükle` ile `.ipynb` dosyasını yükleyin
+3. Veri setini Colab'a yükleyin
+4. `Çalışma Zamanı > Tümünü Çalıştır` ile tüm hücreleri çalıştırın
+
+### Adım 4: Hücreleri Sırayla Çalıştır
+
+| Hücre | İşlem |
+|---|---|
+| 1 | Veri setini çıkarma ve yükleme |
+| 2 | Keşifsel veri analizi ve görselleştirme |
+| 3 | Model eğitimi (Logistic Regression + Random Forest) |
+| 4 | Confusion Matrix ve sınıflandırma raporu |
+| 5 | Aykırı değer analizi |
+| 6 | Model karşılaştırma tablosu |
+| 7 | Örnek hasta tahmini |
+
+---
+
+## 🗂️ Proje Yapısı
+
+```
+covid19-hasta-tahmini/
+├── COVID_19_Hasta_Tahmini.ipynb   # Ana notebook
+├── README.md                       # Bu dosya
+└── extracted_data/
+    └── Cleaned-Data.csv            # İşlenmiş veri seti (zip'ten çıkarılır)
+```
+
+---
+
+## 📚 Kullanılan Kütüphaneler
+
+| Kütüphane | Versiyon | Kullanım Amacı |
+|---|---|---|
+| `pandas` | ≥ 1.3 | Veri okuma ve işleme |
+| `numpy` | ≥ 1.21 | Sayısal işlemler |
+| `matplotlib` | ≥ 3.4 | Görselleştirme |
+| `seaborn` | ≥ 0.11 | İstatistiksel grafikler |
+| `scikit-learn` | ≥ 0.24 | Model eğitimi ve değerlendirme |
+
+---
+
+*Bu proje, makine öğrenmesi dersi kapsamında eğitim amaçlıdır.*
