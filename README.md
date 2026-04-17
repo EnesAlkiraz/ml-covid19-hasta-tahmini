@@ -87,7 +87,6 @@ Veri seti büyük ölçüde binary (0-1) yapıda olduğundan Z-score analizi uyg
 
 Lojistik Regresyon, ikili sınıflandırma problemleri için yaygın kullanılan bir doğrusal modeldir. Giriş özelliklerinin doğrusal kombinasyonunu **sigmoid fonksiyonu** aracılığıyla 0 ile 1 arasında bir olasılık değerine dönüştürür.
 
-$$P(y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + ... + \beta_n x_n)}}$$
 
 - Belirli bir eşiğin (genellikle 0.5) üzerindeki olasılıklar **Hafif (1)**, altındakiler **Ağır/Diğer (0)** olarak sınıflandırılır.
 - Veri setinin binary yapısına ve doğrusal ayrılabilirliğe uygun, yorumlanması kolay bir temel modeldir.
