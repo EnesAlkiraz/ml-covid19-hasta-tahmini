@@ -129,25 +129,12 @@ X_train, X_test, y_train, y_test = <span class="fn">train_test_split</span>(
     <li>Eğitim süresi hızlıdır</li>
   </ul>
 
-  <pre><code><span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LogisticRegression
-
-lr_model = <span class="fn">LogisticRegression</span>(max_iter=<span class="nm">1000</span>)
-lr_model.<span class="fn">fit</span>(X_train, y_train)  <span class="cm"># max_iter=1000 → yakınsama sorununu önler</span></code></pre>
-
   <h3>🌲 2 — Random Forest (Rastgele Orman)</h3>
   <p>
     Random Forest, birden fazla karar ağacının bir araya getirildiği <strong>topluluk öğrenmesi (ensemble learning)</strong> yöntemidir.
     Her ağaç verinin rastgele bir alt kümesinde eğitilir; sonuçlar çoğunluk oylamasıyla birleştirilir.
   </p>
 
-  <h3>Temel Prensipler</h3>
-  <ul>
-    <li><strong>Bagging:</strong> Her ağaç, eğitim verisinin farklı bir bootstrap örneği üzerinde oluşturulur.</li>
-    <li><strong>Rastgele Özellik Seçimi:</strong> Her düğümde özelliklerin rastgele alt kümesi değerlendirilir — ağaçlar arası korelasyonu azaltır.</li>
-    <li><strong>Çoğunluk Oylaması:</strong> Tüm ağaçların tahminleri birleştirilerek nihai sınıf belirlenir.</li>
-  </ul>
-
-  <pre><code><span class="kw">from</span> sklearn.ensemble <span class="kw">import</span> RandomForestClassifier
 
 rf_model = <span class="fn">RandomForestClassifier</span>(n_estimators=<span class="nm">100</span>)
 rf_model.<span class="fn">fit</span>(X_train, y_train)  <span class="cm"># 100 karar ağacından oluşan orman</span></code></pre>
