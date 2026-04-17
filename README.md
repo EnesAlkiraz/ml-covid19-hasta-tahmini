@@ -1,10 +1,10 @@
-# 🦠 COVID-19 Hasta Şiddeti Tahmini
+# COVID-19 Hasta Şiddeti Tahmini
 
 > Makine öğrenmesi algoritmalarıyla COVID-19 hastalarının hastalık şiddetini (Hafif / Ağır) semptom verilerine dayanarak tahmin eden bir sınıflandırma projesi.
 
 ---
 
-## 📌 Proje Açıklaması
+## Proje Açıklaması
 
 Bu proje, COVID-19 hastalarının semptomlarına (ateş, öksürük, nefes darlığı vb.) dayanarak hastalık şiddetini **Hafif (Mild)** veya **Ağır/Diğer** olarak sınıflandırmayı amaçlamaktadır. İki farklı makine öğrenmesi algoritması — **Lojistik Regresyon** ve **Random Forest** — eğitilmiş, performansları karşılaştırılmış ve en başarılı model ile örnek hasta tahmini gerçekleştirilmiştir.
 
@@ -15,7 +15,7 @@ Bu proje, COVID-19 hastalarının semptomlarına (ateş, öksürük, nefes darl�
 
 ---
 
-## 📂 Veri Seti
+##  Veri Seti
 
 **Veri Seti Adı:** COVID-19 Cleaned Dataset  
 **Kaynak:** [Kaggle – COVID-19 Dataset](https://www.kaggle.com/datasets/hemanthhari/symptoms-and-covid-presence)
@@ -44,7 +44,7 @@ Bu proje, COVID-19 hastalarının semptomlarına (ateş, öksürük, nefes darl�
 
 ---
 
-## 🔧 Veri Ön İşleme Adımları
+##  Veri Ön İşleme Adımları
 
 ### 1. Veri Okuma
 Ham veri, zip dosyasından çıkarılarak `pandas` ile CSV formatında okunmuştur.
@@ -81,7 +81,7 @@ Veri seti büyük ölçüde binary (0-1) yapıda olduğundan Z-score analizi uyg
 
 ---
 
-## 🤖 Kullanılan Algoritmalar
+##  Kullanılan Algoritmalar
 
 ### 1. Lojistik Regresyon (Logistic Regression)
 
@@ -105,7 +105,7 @@ Random Forest, çok sayıda karar ağacının birleşiminden oluşan bir **toplu
 
 ---
 
-## 📊 Model Performans Karşılaştırması
+##  Model Performans Karşılaştırması
 
 Her iki model de **Accuracy**, **Precision**, **Recall** ve **F1-Score** metrikleriyle değerlendirilmiştir.
 
@@ -116,7 +116,7 @@ Her iki model de **Accuracy**, **Precision**, **Recall** ve **F1-Score** metrikl
 | Recall | `classification_report` ile elde edilir | `classification_report` ile elde edilir |
 | F1-Score | `classification_report` ile elde edilir | `classification_report` ile elde edilir |
 
-> 📌 **Not:** Gerçek metrik değerleri notebook çalıştırıldığında `classification_report` çıktısında görüntülenecektir.
+> **Not:** Gerçek metrik değerleri notebook çalıştırıldığında `classification_report` çıktısında görüntülenecektir.
 
 ### Görselleştirmeler
 - **Confusion Matrix (Karmaşıklık Matrisi):** Her iki model için ayrı ayrı ısı haritası
@@ -125,7 +125,7 @@ Her iki model de **Accuracy**, **Precision**, **Recall** ve **F1-Score** metrikl
 
 ---
 
-## 💡 Sonuç ve Yorumlar
+## Sonuç ve Yorumlar
 
 - **Veri seti tamamen binary (0/1) yapıda** olduğundan özellik mühendisliğine gerek duyulmamış; model, semptomların varlığını/yokluğunu doğrudan işleyebilmiştir.
 - **Random Forest**, doğrusal olmayan ilişkileri yakalama kapasitesi sayesinde Lojistik Regresyon'a kıyasla genellikle daha yüksek doğruluk oranı vermektedir.
@@ -139,7 +139,7 @@ Her iki model de **Accuracy**, **Precision**, **Recall** ve **F1-Score** metrikl
 
 ---
 
-## 🚀 Kodların Nasıl Çalıştırılacağı
+##  Kodların Nasıl Çalıştırılacağı
 
 ### Gereksinimler
 
@@ -192,7 +192,7 @@ jupyter notebook COVID_19_Hasta_Tahmini.ipynb
 
 ---
 
-## 🗂️ Proje Yapısı
+##  Proje Yapısı
 
 ```
 covid19-hasta-tahmini/
